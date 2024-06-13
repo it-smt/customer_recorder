@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <header>
+        <h1>Amazing barbershop</h1>
+        <a href="../../../templates/login.html">Вход</a>
+    </header>
+    <main>
+        <div class="search">
+            <img src="{% static 'images/search.png' %}" alt="search">
+            <input type="text" placeholder="Найти">
+        </div>
+        <div class="service">
+            <div class="service_card">
+                <h2>Мужская стрижка</h2>
+                <img src="{% static 'images/man.png' %}" alt="hair">
+                <div class="service_card_tools">
+                    <p>Стрижка под одну насадку мужская <br>Цена: 500р</p>
+                    <input name="type" type="radio">
+                </div>
+            </div>
+            <div class="service_card service_card_not1">
+                <h2>Детская стрижка</h2>
+                <img src="{% static 'images/young.png' %}" alt="hair">
+                <div class="service_card_tools">
+                    <p>Стрижка молодежная <br>Цена: 600р</p>
+                    <input name="type" type="radio">
+                </div>
+            </div>
+            <div class="service_card service_card_not1">
+                <h2>Стрижка бороды</h2>
+                <img src="{% static 'images/beard.png' %}" alt="hair">
+                <div class="service_card_tools">
+                    <p>Стрижка бороды <br>Цена: 1000р</p>
+                    <input name="type" type="radio">
+                </div>
+            </div>
+        </div>
+        <div class="choose">
+            <div class="line"></div>
+            <p class="title">Запись</p>
+            <div class="line"></div>
+            <div class="line"></div>
+            <p class="title">Выбор мастера</p>
+            <div class="line"></div>
+            <div class="masters">
+                <div class="master">
+                    <div class="master_info">
+                        <img src="{% static 'images/Face1.png' %}" alt="avatar">
+                        <div>
+                            <p>Владислав</p>
+                            <p>Отзывы: 5</p>
+                        </div>
+                    </div>
+                    <input name="master" type="radio">
+                </div>
+                <div class="master">
+                    <div class="master_info">
+                        <img src="{% static 'images/Face2.png' %}" alt="avatar">
+                        <div>
+                            <p>Игорь</p>
+                            <p>Отзывы: 20</p>
+                        </div>
+                    </div>
+                    <input name="master" type="radio">
+                </div>
+            </div>
+        </div>
+        <div class="date">
+            <div class="title">Выбор даты</div>
+            <label
+                    for="Date">
+            </label>
+            <input type="date"
+                   id="date">
+        </div>
+        <div class="contact">
+            <div class="title">Ввести личные данные</div>
+            <div class="form">
+                <input type="text" placeholder="Имя">
+                <input type="text" placeholder="Фамилия">
+                <input type="text" placeholder="Отчество">
+                <input type="text" placeholder="Номер">
+                <input type="text" placeholder="Электронная почта">
+            </div>
+            <button class="order">Записаться</button>
+        </div>
+    </main>
+{% endblock %}

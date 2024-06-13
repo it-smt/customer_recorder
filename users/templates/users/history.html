@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    <style>
+        header {
+            justify-content: center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="history">
+        <div class="history_inside">
+            <div class="header">
+                <h1>История записей</h1>
+            </div>
+            <div class="users">
+                <div class="item">
+                    <div>
+                        <p>Стрижка бороды</p>
+                        <p>Алексей Владимирович Пупкин</p>
+                        <p>17:30; 30.07.2024 </p>
+                    </div>
+                    <input type="radio">
+                </div>
+            </div>
+            <div class="buttons">
+                <a href="room.html" class="order order_nopadding">Вернуться назад</a>
+                <button class="order order_nopadding">Удалить запись</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

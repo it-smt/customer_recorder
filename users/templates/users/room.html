@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <style>
+        header {
+            justify-content: center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <h1>Личный кабинет</h1>
+        <div class="user">
+            <img src="{% static 'images/image 1.png' %}" alt="avatar">
+            <p>Админ</p>
+        </div>
+    </div>
+    <div class="links">
+        <a href="history.html">История записей</a>
+        <a class="red" href="login.html">Выйти</a>
+    </div>
+{% endblock %}

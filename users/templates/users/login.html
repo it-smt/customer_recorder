@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    <style>
+        header {
+            justify-content: center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Amazing barbershop</h1>
+    </header>
+    <div class="main">
+        <div class="login">
+            <div class="title">Вход</div>
+            <div class="input_login">
+                <p>Логин</p>
+                <input type="text">
+            </div>
+            <div class="input_login">
+                <p>Пароль</p>
+                <input type="text">
+            </div>
+            <a href="room.html" class="order">Войти</a>
+        </div>
+    </div>
+{% endblock %}
