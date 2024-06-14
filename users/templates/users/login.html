@@ -8,6 +8,8 @@
     </style>
 {% endblock %}
 
+{% block title %}Авторизация{% endblock %}
+
 {% block content %}
     <header>
         <h1>Amazing barbershop</h1>
@@ -15,15 +17,18 @@
     <div class="main">
         <div class="login">
             <div class="title">Вход</div>
-            <div class="input_login">
-                <p>Логин</p>
-                <input type="text">
-            </div>
-            <div class="input_login">
-                <p>Пароль</p>
-                <input type="text">
-            </div>
-            <a href="room.html" class="order">Войти</a>
+            <form method="post">
+                {% csrf_token %}
+                <div class="input_login">
+                    <p>Имя пользователя</p>
+                    {{ form.username }}
+                </div>
+                <div class="input_login">
+                    <p>Пароль</p>
+                    {{ form.password }}
+                </div>
+                <input type="submit" class="order" value="Войти">
+            </form>
         </div>
     </div>
 {% endblock %}

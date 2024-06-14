@@ -8,6 +8,8 @@
     </style>
 {% endblock %}
 
+{% block title %}История{% endblock %}
+
 {% block content %}
     <div class="history">
         <div class="history_inside">
@@ -15,18 +17,19 @@
                 <h1>История записей</h1>
             </div>
             <div class="users">
-                <div class="item">
-                    <div>
-                        <p>Стрижка бороды</p>
-                        <p>Алексей Владимирович Пупкин</p>
-                        <p>17:30; 30.07.2024 </p>
+                {% for record in records %}
+                    <div class="item">
+                        <div>
+                            <p>{{ record.service.name }}</p>
+                            <p>{{ record.client.get_full_name }}</p>
+                            <p>{{ record.date }}</p>
+                        </div>
                     </div>
-                    <input type="radio">
-                </div>
+                {% endfor %}
             </div>
             <div class="buttons">
-                <a href="room.html" class="order order_nopadding">Вернуться назад</a>
-                <button class="order order_nopadding">Удалить запись</button>
+                <a href="{% url 'users:profile' %}" class="order order_nopadding">Вернуться назад</a>
+                {#                <button class="order order_nopadding">Удалить запись</button>#}
             </div>
         </div>
     </div>

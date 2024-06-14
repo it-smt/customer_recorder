@@ -4,7 +4,16 @@
 {% block content %}
     <header>
         <h1>Amazing barbershop</h1>
-        <a href="../../../templates/login.html">Вход</a>
+        <div>
+            {% if user.is_authenticated %}
+                <a href="{% url 'users:profile' %}">Профиль</a>
+                {% if user.is_staff %}
+                    <a href="{% url 'admin:index' %}" style="margin-left: 20px">Админ-панель</a>
+                {% else %}
+                    <a href="{% url 'users:login' %}">Вход</a>
+                {% endif %}
+            {% endif %}
+        </div>
     </header>
     <main>
         <div class="search">
@@ -12,30 +21,16 @@
             <input type="text" placeholder="Найти">
         </div>
         <div class="service">
-            <div class="service_card">
-                <h2>Мужская стрижка</h2>
-                <img src="{% static 'images/man.png' %}" alt="hair">
-                <div class="service_card_tools">
-                    <p>Стрижка под одну насадку мужская <br>Цена: 500р</p>
-                    <input name="type" type="radio">
+            {% for service in services %}
+                <div class="service_card service_card_not1">
+                    <h2>{{ service.name }}</h2>
+                    <img src="{% static 'images/beard.png' %}" alt="hair">
+                    <div class="service_card_tools">
+                        <p>Цена: {{ service.price }}р</p>
+                        <input name="type" id="radioBtnService" data-pk-service="{{ service.id }}" type="radio">
+                    </div>
                 </div>
-            </div>
-            <div class="service_card service_card_not1">
-                <h2>Детская стрижка</h2>
-                <img src="{% static 'images/young.png' %}" alt="hair">
-                <div class="service_card_tools">
-                    <p>Стрижка молодежная <br>Цена: 600р</p>
-                    <input name="type" type="radio">
-                </div>
-            </div>
-            <div class="service_card service_card_not1">
-                <h2>Стрижка бороды</h2>
-                <img src="{% static 'images/beard.png' %}" alt="hair">
-                <div class="service_card_tools">
-                    <p>Стрижка бороды <br>Цена: 1000р</p>
-                    <input name="type" type="radio">
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <div class="choose">
             <div class="line"></div>
@@ -45,46 +40,64 @@
             <p class="title">Выбор мастера</p>
             <div class="line"></div>
             <div class="masters">
-                <div class="master">
-                    <div class="master_info">
-                        <img src="{% static 'images/Face1.png' %}" alt="avatar">
-                        <div>
-                            <p>Владислав</p>
-                            <p>Отзывы: 5</p>
+                {% for master in masters %}
+                    <div class="master">
+                        <div class="master_info">
+                            <img src="{% static 'images/Face1.png' %}" alt="avatar">
+                            <div>
+                                <p>{{ master.first_name }}</p>
+                                <p>Отзывы: 5</p>
+                            </div>
                         </div>
+                        <input name="master" id="radioBtnMaster" data-pk-master="{{ master.id }}" type="radio">
                     </div>
-                    <input name="master" type="radio">
-                </div>
-                <div class="master">
-                    <div class="master_info">
-                        <img src="{% static 'images/Face2.png' %}" alt="avatar">
-                        <div>
-                            <p>Игорь</p>
-                            <p>Отзывы: 20</p>
-                        </div>
-                    </div>
-                    <input name="master" type="radio">
-                </div>
+                {% endfor %}
             </div>
         </div>
-        <div class="date">
-            <div class="title">Выбор даты</div>
-            <label
-                    for="Date">
-            </label>
-            <input type="date"
-                   id="date">
-        </div>
-        <div class="contact">
-            <div class="title">Ввести личные данные</div>
-            <div class="form">
-                <input type="text" placeholder="Имя">
-                <input type="text" placeholder="Фамилия">
-                <input type="text" placeholder="Отчество">
-                <input type="text" placeholder="Номер">
-                <input type="text" placeholder="Электронная почта">
+        <form action="{% url 'main:index' %}" method="post">
+            {% csrf_token %}
+            <div class="date">
+                <div class="title">Выбор даты</div>
+                {{ form.time }}
+                {{ form.date }}
             </div>
-            <button class="order">Записаться</button>
-        </div>
+            <div class="contact">
+                <div class="title">Ввести личные данные</div>
+                <div class="form">
+                    {{ form.first_name }}
+                    {{ form.last_name }}
+                    {{ form.middle_name }}
+                    {{ form.phone }}
+                    {{ form.email }}
+                </div>
+                <input type="submit" class="order" value="Записаться">
+            </div>
+            {{ form.pk_service }}
+            {{ form.pk_master }}
+        </form>
     </main>
+{% endblock %}
+
+{% block script %}
+    <script>
+        const radioBtnsService = document.querySelectorAll('#radioBtnService');
+        const radioBtnsMaster = document.querySelectorAll('#radioBtnMaster');
+        const hiddenInputService = document.querySelector('#id_pk_service');
+        const hiddenInputMaster = document.querySelector('#id_pk_master');
+
+        radioBtnsService.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.checked) {
+                    hiddenInputService.value = btn.dataset.pkService;
+                }
+            })
+        })
+        radioBtnsMaster.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.checked) {
+                    hiddenInputMaster.value = btn.dataset.pkMaster;
+                }
+            })
+        })
+    </script>
 {% endblock %}
